@@ -6,79 +6,19 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>File Upload Page</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-	<style>
-		body {
-			background-color: #f8f9fa;
-		}
-
-		.container {
-			margin-top: 50px;
-		}
-
-		.file-input {
-			display: flex;
-			align-items: center;
-		}
-
-		.btn-primary {
-			background-color: lightblue;
-			border-color: lightblue;
-		}
-
-		.btn-primary:hover {
-			background-color: #add8e6;
-			border-color: #add8e6;
-		}
-
-		.progress {
-			margin-top: 20px;
-			height: 25px;
-		}
-
-		.response-area {
-			margin-top: 30px;
-			white-space: pre-wrap;
-			overflow-y: auto;
-		}
-
-		.custom-file-input {
-			visibility: hidden;
-			position: absolute;
-		}
-
-		.custom-file-label {
-			background-color: lightblue;
-			padding: 15px;
-			cursor: pointer;
-			border-radius: 5px;
-			width: 100%;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-		}
-
-		.custom-file-label::after {
-			display: none;
-			content: "Browse";
-			color: white;
-			background-color: #007bff;
-			padding: 8px 15px;
-			border-radius: 5px;
-			margin-left: 10px;
-		}
-
-		.custom-file-label.upload::after {
-			content: "Upload";
-		}
-	</style>
+	<link rel="stylesheet" href="./kab-transcribe.css">
 </head>
 
 <body>
 	<div class="container">
 		<form id="uploadForm" enctype="multipart/form-data">
 			<div class="custom-file">
+				<div class="file-input-wrapper">
 				<input type="file" class="custom-file-input" id="fileInput" name="fileInput">
-				<label class="custom-file-label" for="fileInput">Choose file</label>
+				<label class="custom-file-label" id="label-progress" for="fileInput">Choose file</label>
+				<div class="progress-bar"></div>
+				</div>
+
 			</div>
 			<button type="submit" id="browseUploadBtn" class="btn btn-primary mt-3">Browse</button>
 		</form>
@@ -93,102 +33,7 @@
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-	<script>
-		const form = document.getElementById('uploadForm');
-		const fileInput = document.getElementById('fileInput');
-		const customFileLabel = document.querySelector('.custom-file-label');
-		const browseUploadBtn = document.getElementById('browseUploadBtn');
-		const progressBar = document.querySelector('.progress');
-		const progressBarFill = document.querySelector('.progress-bar');
-
-		browseUploadBtn.addEventListener('click', (event) => {
-			if (browseUploadBtn.textContent === "Browse") {
-				event.preventDefault();
-				fileInput.click();
-			}
-		});
-
-		fileInput.addEventListener('change', () => {
-			const fileName = fileInput.files[0]?.name || "Choose file";
-			customFileLabel.textContent = fileName;
-			if (fileName !== "Choose file") {
-				customFileLabel.classList.add('upload');
-				browseUploadBtn.textContent = "Upload";
-			} else {
-				customFileLabel.classList.remove('upload');
-				browseUploadBtn.textContent = "Browse";
-			}
-		});
-
-		form.addEventListener('submit', (event) => {
-			if (browseUploadBtn.textContent === "Browse") {
-				event.preventDefault();
-				fileInput.click();
-			} else {
-				event.preventDefault();
-				progressBar.style.display = 'block';
-				const formData = new FormData(form);
-
-				fetch('/upload', {
-					method: 'POST',
-					body: formData
-				})
-					// .then(response => {
-					// 	if (!response.ok) {
-					// 		throw new Error('Network response was not ok.');
-					// 	}
-					// 	return response.text();
-					// })
-					// .then(text => {
-					// 	document.getElementById('response-text').textContent = text;
-					// })
-					.then(response => response.json())
-					.then(data => {
-						if (data.uploadId) {
-							uploadId = data.uploadId;
-							startEventSource(uploadId);
-						}
-					})
-					.catch(error => {
-						console.error('Error:', error);
-						document.getElementById('response-text').textContent = 'An error occurred during upload.';
-					})
-					// .finally(() => {
-					// 	progressBar.style.display = 'none';
-					// 	progressBarFill.style.width = '0%';
-					// 	fileInput.value = ""; // Clear the file input
-					// 	customFileLabel.textContent = "Choose file"; // Reset label
-					// 	customFileLabel.classList.remove('upload'); // Reset label class
-					// 	browseUploadBtn.textContent = "Browse"; // Reset button text
-					// });
-			}
-		});
-
-		function startEventSource(uploadId) {
-				eventSource = new EventSource(`/progress/${uploadId}`);
-				eventSource.addEventListener('message', (event) => {
-					const data = JSON.parse(event.data);
-					if (data.progress) {
-						const percentComplete = data.progress;
-						progressBarFill.style.width = percentComplete + '%';
-					}
-					if (data.completed) {
-						eventSource.close();
-						progressBarWrapper.style.display = 'none';
-						progressBarFill.style.width = '0%';
-						fileInput.value = ""; // Clear the file input
-						customFileLabel.textContent = "Choose file"; // Reset label
-						customFileLabel.classList.remove('upload'); // Reset label class
-						browseUploadBtn.textContent = "Browse"; // Reset button text
-						document.getElementById('response-text').textContent = 'Upload completed successfully.';
-					}
-					if (data.error) {
-						eventSource.close();
-						document.getElementById('response-text').textContent = 'An error occurred during upload.';
-					}
-				});
-
-	</script>
+	<script src="./kab-transcribe.js"></script>
 </body>
 
 </html>

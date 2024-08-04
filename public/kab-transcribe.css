@@ -1,0 +1,92 @@
+body {
+	background-color: #f8f9fa;
+}
+
+.container {
+	margin-top: 50px;
+}
+
+.file-input {
+	display: flex;
+	align-items: center;
+}
+
+.btn-primary {
+	background-color: lightblue;
+	border-color: lightblue;
+}
+
+.btn-primary:hover {
+	background-color: #add8e6;
+	border-color: #add8e6;
+}
+
+.progress {
+	margin-top: 20px;
+	height: 25px;
+}
+
+.response-area {
+	margin-top: 30px;
+	white-space: pre-wrap;
+	overflow-y: auto;
+}
+
+.custom-file-input {
+	visibility: hidden;
+	position: absolute;
+}
+
+.custom-file-label {
+	background-color: lightblue;
+	padding: 15px;
+	cursor: pointer;
+	border-radius: 5px;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.custom-file-label::after {
+	display: none;
+	content: "Browse";
+	color: white;
+	background-color: #007bff;
+	padding: 8px 15px;
+	border-radius: 5px;
+	margin-left: 10px;
+}
+
+.custom-file-label.upload::after {
+	content: "Upload";
+}
+.file-input-wrapper {
+	position: relative;
+	height: 40px;
+	border-radius: 5px;
+	overflow: hidden;
+}
+
+.custom-file-input {
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	cursor: pointer;
+	/* Make it clickable */
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.progress-bar {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	background-color: rgba(57, 222, 120, 0.47);
+	width: 0;
+	transition: width 0.3s ease-in-out;
+	z-index: 1;
+	/* Smooth transition */
+}
