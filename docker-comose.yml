@@ -10,7 +10,7 @@ services:
     container_name: kab-transcribe-container
     restart: unless-stopped
     ports:
-      - "3444:3444" # Map port 3000 in the container to 3000 on your machine
+      - "3445:3445"
     volumes:
       - ./uploads:/app/uploads
       - ./cuts:/app/cuts
