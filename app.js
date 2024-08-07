@@ -71,7 +71,7 @@ app.post("/upload", (req, res) => {
   req.pipe(busboy);
 });
 
-const port = 3000; // Choose your desired port
+const port = 3445; // Choose your desired port
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}/`);
 });
