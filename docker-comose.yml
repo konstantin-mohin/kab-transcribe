@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        BUILD_DATE: 2024-06-11
+        BUILD_DATE: 2024-08-10
     pull_policy: build
     container_name: kab-transcribe-container
     restart: unless-stopped
