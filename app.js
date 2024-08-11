@@ -14,6 +14,8 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
+console.log("Current key", process.env.OPENAI_API_KEY);
+
 // Create the 'uploads' directory if it doesn't exist
 fs.mkdirSync(uploadsDir, { recursive: true });
 
