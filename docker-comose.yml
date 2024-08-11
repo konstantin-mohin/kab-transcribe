@@ -7,7 +7,7 @@ services:
       args:
         BUILD_DATE: 2024-06-12
     environment:
-      OPENAI_API_KEY: ${stack.env.OPENAI_API_KEY1}
+      OPENAI_API_KEY1: $${stack.env.OPENAI_API_KEY}
     pull_policy: build
     container_name: kab-transcribe-container
     restart: unless-stopped
