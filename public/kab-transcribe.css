@@ -31,7 +31,7 @@ body {
 
 #response-container {
 	visibility: hidden;
-	height: 0;
+	height: auto;
 	background: #f1f0ef;
 	margin: 4rem auto;
 	padding: 15px 20px;

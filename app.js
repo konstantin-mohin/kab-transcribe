@@ -4,6 +4,7 @@ const fs = require("fs");
 const Busboy = require("busboy");
 const ffmpeg = require("fluent-ffmpeg");
 const OpenAI = require("openai");
+require("dotenv").config();
 
 const app = express();
 
