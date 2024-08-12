@@ -7,6 +7,8 @@ const OpenAI = require("openai");
 require("dotenv").config();
 
 const app = express();
+const port = 3445;
+const timeout = 15 * 60 * 1000; // 15 minutes in milliseconds
 
 const uploadsDir = path.join(__dirname, "uploads");
 
@@ -19,14 +21,16 @@ console.log("Current key", process.env.OPENAI_API_KEY);
 // Create the 'uploads' directory if it doesn't exist
 fs.mkdirSync(uploadsDir, { recursive: true });
 
+app.setTimeout(timeout);
+
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, "public", "dist")));
 
 app.post("/upload", (req, res) => {
+  console.log("UPLOADING");
   const busboy = Busboy({ headers: req.headers });
   const tempFilePath = path.join(uploadsDir, `video-${Date.now()}.tmp`);
   const tempFileStream = fs.createWriteStream(tempFilePath);
-  console.log("UPLOADING");
 
   busboy.on("file", (fieldname, file, info) => {
     console.log("File received:", info.filename);
@@ -74,7 +78,6 @@ app.post("/upload", (req, res) => {
   req.pipe(busboy);
 });
 
-const port = 3445; // Choose your desired port
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}/`);
 });
