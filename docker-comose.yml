@@ -5,9 +5,9 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        BUILD_DATE: 2024-06-16
+        BUILD_DATE: 2024-06-17
     environment:
-      OPENAI_API_KEY: $$$${stack.env.OPENAI_API_KEY}$$$
+      OPENAI_API_KEY: $${stack.env.OPENAI_API_KEY}
     pull_policy: build
     container_name: kab-transcribe-container
     restart: unless-stopped

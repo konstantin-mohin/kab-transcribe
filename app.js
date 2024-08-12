@@ -9,7 +9,7 @@ const http = require("http");
 
 const app = express();
 const port = 3445;
-const timeout = 15 * 60 * 1000; // 15 minutes in milliseconds
+const timeout = 30 * 60 * 1000; // 30 minutes in milliseconds
 const server = http.createServer(app); // Create server instance
 const uploadsDir = path.join(__dirname, "uploads");
 
@@ -18,6 +18,7 @@ const openai = new OpenAI({
 });
 
 console.log("Current key", process.env.OPENAI_API_KEY);
+console.log("TEST key", process.env.TEST_KEY);
 
 // Create the 'uploads' directory if it doesn't exist
 fs.mkdirSync(uploadsDir, { recursive: true });
