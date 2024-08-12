@@ -5,11 +5,12 @@ const Busboy = require("busboy");
 const ffmpeg = require("fluent-ffmpeg");
 const OpenAI = require("openai");
 require("dotenv").config();
+const http = require("http");
 
 const app = express();
 const port = 3445;
 const timeout = 15 * 60 * 1000; // 15 minutes in milliseconds
-
+const server = http.createServer(app); // Create server instance
 const uploadsDir = path.join(__dirname, "uploads");
 
 const openai = new OpenAI({
@@ -21,7 +22,7 @@ console.log("Current key", process.env.OPENAI_API_KEY);
 // Create the 'uploads' directory if it doesn't exist
 fs.mkdirSync(uploadsDir, { recursive: true });
 
-app.setTimeout(timeout);
+server.setTimeout(timeout);
 
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, "public", "dist")));
@@ -78,6 +79,6 @@ app.post("/upload", (req, res) => {
   req.pipe(busboy);
 });
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Server running at http://localhost:${port}/`);
 });
