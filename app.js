@@ -57,7 +57,7 @@ app.post("/upload", (req, res) => {
           const transcriptionResult = await openai.audio.transcriptions.create({
             file: fs.createReadStream(outputAudioPath),
             model: "whisper-1",
-            response_format: "text",
+            response_format: "srt",
           });
           console.log("File processing complete.", transcriptionResult);
           res.send(transcriptionResult);
