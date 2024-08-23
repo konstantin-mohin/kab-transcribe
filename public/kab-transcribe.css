@@ -59,10 +59,10 @@ body {
 
 }
 .srt-block {
-	display: flex;
-	padding: 10px;
-	margin: 20px 0;
-	border: 1px dashed;
+	display: inline-flex;
+	/* padding: 10px; */
+	margin: 10px 0;
+	/* border: 1px dashed; */
 	border-radius: 2px;
 }
 
@@ -73,6 +73,7 @@ body {
 	font-weight: 800;
 	font-size: 0.8rem;
 	color: #777070;
+	display: none;
 }
 
 .srt-block-timestamp {
@@ -85,8 +86,11 @@ body {
 	opacity: 0.6;
 }
 
-.srt-block-content {
-	width: 100%;
+.srt-block-text {
+background: cornsilk;
+padding: 0 8px;
+border-radius: 12px;
+/* border-bottom: 1px dotted; */
 }
 @keyframes fadeIn {
 	from {

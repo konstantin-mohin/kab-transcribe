@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        BUILD_DATE: 2024-06-19
+        BUILD_DATE: 2024-06-20
     environment:
       OPENAI_API_KEY: $${stack.env.OPENAI_API_KEY}
     pull_policy: build
